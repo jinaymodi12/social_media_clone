@@ -1,0 +1,144 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Post Details</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body><br><br><br>
+    <!-- Topbar Start -->
+    
+   <a href="{% url 'index' %}" class='btn btn-success'>Back</a>
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Trending</span></h2>
+           
+        </div>
+        
+       
+        
+        <div class="row px-xl-5 pb-3">
+            
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="{{uid.post.url}}" alt="" width="300" height="300">
+                    </div>
+                    
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">{{uid.user.created}}</h6>
+                        <h6 class="text-truncate mb-3">{{uid.description}}</h6>
+                        {% if tid %}
+                        <h4 class="text-center" style="color: chocolate;">All Comment</h4>
+                        <table class="table table-striped table-dark">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Comment Date</th>
+                                <th scope="col">Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for one in tid %}
+                              <tr>
+                                <td>{{one.user.first_name}}</td>
+                                <td>{{one.date}}</td>
+                                <td>{{one.comment}}</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                          {% else %}
+                          <p style="color: green;">No Comment Yet!!</p>
+                          {% endif %}
+                        <form  method = "POST">
+                            {% csrf_token %}
+                            {{form.comment}}
+                        <div class="clearfix">
+                          <button type="submit" class="signupbtn">Comment</button>
+                          
+                        </div><br>
+                       
+                       
+                      
+                        <div class="d-flex justify-content-center">
+                           
+                        </div>
+                    </div>
+                 
+                    </div>
+            </div>
+           </div>
+    </div>
+    
+    <!-- Products End -->
+
+
+        <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-1.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-2.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-3.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-4.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-5.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-6.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-7.jpg' %}" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="{% static 'img/vendor-8.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    
+</body>
+
+</html>
+{% endblock %}
