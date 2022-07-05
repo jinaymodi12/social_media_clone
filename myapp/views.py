@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.db.models import Q 
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -92,18 +93,31 @@ def profile_edit(request):
     return render(request,'edit.html',{'form':form1})
 
 @login_required(login_url='/login/')
-def likes(request,pk):
-    uid = AddPost.objects.get(id=pk)
-    uid.like.add(request.user)
-    uid.save()
-    return redirect('index')
+def like_dislike(request):
+    if request.method =='POST':
+        id = request.POST.get('id')
+        data = request.POST.get('str')
+        uid = AddPost.objects.get(id=id)
+        if data == 'Like':
+            uid.like.add(request.user)
+            uid.save()
+            a = uid.like.count()
+            return JsonResponse({'status':200,'likes':a})
+        else:
+            uid.like.remove(request.user)
+            uid.save()
+            a = uid.like.count()
+            return JsonResponse({'status':200,'likes':a})
 
-@login_required(login_url='/login/')
-def dislikes(request,pk):
-    uid = AddPost.objects.get(id=pk)
-    uid.like.remove(request.user)
-    uid.save()
-    return redirect('index')
+# @login_required(login_url='/login/')
+# def dislikes(request):
+#     if request.method =='POST':
+#         id = request.POST.get('id')
+#         data = request.POST.get('str')
+#         uid = AddPost.objects.get(id=id)
+#         uid.like.remove(request.user)
+#         uid.save()
+#     return redirect('index')
 
 @login_required(login_url='/login/')
 def view_profiles(request,pk):
